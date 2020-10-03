@@ -1,0 +1,304 @@
+#! C:/Program Files/Nuke11.3v5/nuke-11.3.5.dll -nx
+version 11.3 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-8" y="-8" w="2560" h="1294" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="2054" stretch="1"/>
+            <splitter orientation="1">
+                <split size="1270"/>
+                <splitter orientation="2">
+                    <split size="978"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="uk.co.thefoundry.scripteditor.2"/>
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="268"/>
+                    <dock id="" activePageId="DopeSheet.1">
+                        <page id="DopeSheet.1"/>
+                    </dock>
+                </splitter>
+                <split size="780"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                </dock>
+            </splitter>
+            <split size="458"/>
+            <splitter orientation="2">
+                <split size="958"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                </dock>
+                <split size="288"/>
+                <dock id="" activePageId="uk.co.thefoundry.waveformscope.1">
+                    <page id="uk.co.thefoundry.vectorscope.1"/>
+                    <page id="uk.co.thefoundry.waveformscope.1"/>
+                    <page id="uk.co.thefoundry.histogram.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/g.quelch.is/Documents/colourChecker_GQ.nk
+ fps 25
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+Group {
+ inputs 0
+ name ColourChecker_GQ
+ xpos -40
+ ypos -226
+ addUserKnob {20 USERCTRL l CTRL}
+ addUserKnob {41 maskSize l "Mask Size" T CTRLs.maskSize}
+ addUserKnob {41 gq_ColourCheckerOutput l Output T CTRLs.gq_ColourCheckerOutput}
+ addUserKnob {20 refDetails l Reference n 1}
+ refDetails 0
+ addUserKnob {41 RefFrameHold l "Frame Hold" T CTRLs.RefFrameHold}
+ addUserKnob {41 RefBottomLeft l "Bottom Left" T CTRLs.RefBottomLeft}
+ addUserKnob {41 RefBottomRight l "Bottom Right" T CTRLs.RefBottomRight}
+ addUserKnob {41 RefTopRight l "Top Right" T CTRLs.RefTopRight}
+ addUserKnob {41 RefTopLeft l "Top Left" T CTRLs.RefTopLeft}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 renderDetails l Render n 1}
+ renderDetails 0
+ addUserKnob {41 RenderFrameHold l "Frame Hold" T CTRLs.RenderFrameHold}
+ addUserKnob {41 renderMasking l "Merged Masking" -STARTLINE T CTRLs.renderMasking}
+ addUserKnob {41 RenderBottomLeft l "Bottom Left" T CTRLs.RenderBottomLeft}
+ addUserKnob {41 RenderBottomRight l "Bottom Right" T CTRLs.RenderBottomRight}
+ addUserKnob {41 RenderTopRight l "Top Right" T CTRLs.RenderTopRight}
+ addUserKnob {41 RenderTopLeft l "Top Left" T CTRLs.RenderTopLeft}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+}
+ Reformat {
+  inputs 0
+  name Reformat3
+  xpos -684
+  ypos -110
+ }
+ Grid {
+  number {6 4}
+  size {{parent.CTRLs.maskSize}}
+  name Grid1
+  xpos -684
+  ypos -61
+ }
+set N5e076800 [stack 0]
+ Input {
+  inputs 0
+  name Render
+  xpos -987
+  ypos -151
+ }
+ Reformat {
+  resize height
+  black_outside true
+  name Reformat1
+  xpos -987
+  ypos -95
+ }
+ FrameHold {
+  name FrameHold2
+  xpos -987
+  ypos -8
+ }
+set N5e082900 [stack 0]
+ CornerPin2D {
+  to1 {0 0}
+  to2 {{width} 0}
+  to3 {{width} {height}}
+  to4 {0 {height}}
+  invert false
+  from1 {{parent.CTRLs.RenderBottomLeft} {parent.CTRLs.RenderBottomLeft}}
+  from2 {{parent.CTRLs.RenderBottomRight} {parent.CTRLs.RenderBottomRight}}
+  from3 {{parent.CTRLs.RenderTopRight} {parent.CTRLs.RenderTopRight}}
+  from4 {{parent.CTRLs.RenderTopLeft} {parent.CTRLs.RenderTopLeft}}
+  name CornerPin2D1
+  label "fullscreen checker"
+  xpos -987
+  ypos 44
+ }
+set N15687800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge1
+  xpos -773
+  ypos 50
+ }
+set N15686c00 [stack 0]
+ Input {
+  inputs 0
+  name Reference
+  xpos -357
+  ypos -145
+  number 1
+ }
+ Reformat {
+  name Reformat2
+  xpos -357
+  ypos -97
+ }
+ FrameHold {
+  first_frame {{parent.CTRLs.RefFrameHold}}
+  name FrameHold1
+  xpos -357
+  ypos -17
+ }
+set N5e082000 [stack 0]
+ CornerPin2D {
+  to1 {0 0}
+  to2 {{width} 0}
+  to3 {{width} {height}}
+  to4 {0 {height}}
+  invert false
+  from1 {{parent.CTRLs.RefBottomLeft} {parent.CTRLs.RefBottomLeft}}
+  from2 {{parent.CTRLs.RefBottomRight} {parent.CTRLs.RefBottomRight}}
+  from3 {{parent.CTRLs.RefTopRight} {parent.CTRLs.RefTopRight}}
+  from4 {{parent.CTRLs.RefTopLeft} {parent.CTRLs.RefTopLeft}}
+  name CornerPin2D2
+  label "fullscreen checker"
+  xpos -357
+  ypos 37
+ }
+set N15687c00 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos -357
+  ypos 226
+ }
+ Keyer {
+  operation "saturation key"
+  name Keyer2
+  xpos -356
+  ypos 298
+ }
+push $N5e076800
+push $N15687c00
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge2
+  xpos -550
+  ypos 43
+ }
+push $N15687800
+ Merge2 {
+  inputs 2
+  name Merge4
+  xpos -550
+  ypos 203
+ }
+ Keyer {
+  operation "saturation key"
+  name Keyer1
+  xpos -550
+  ypos 280
+ }
+push $N15686c00
+push $N15687800
+ Switch {
+  inputs 2
+  which {{1-parent.CTRLs.renderMasking}}
+  name Switch1
+  xpos -987
+  ypos 215
+ }
+ CornerPin2D {
+  to1 {0 0}
+  to2 {{width} 0}
+  to3 {{width} {height}}
+  to4 {0 {height}}
+  invert true
+  from1 {{parent.CTRLs.RefBottomLeft} {parent.CTRLs.RefBottomLeft}}
+  from2 {{parent.CTRLs.RefBottomRight} {parent.CTRLs.RefBottomRight}}
+  from3 {{parent.CTRLs.RefTopRight} {parent.CTRLs.RefTopRight}}
+  from4 {{parent.CTRLs.RefTopLeft} {parent.CTRLs.RefTopLeft}}
+  name CornerPin2D3
+  xpos -987
+  ypos 297
+ }
+ Dot {
+  name Dot2
+  xpos -953
+  ypos 505
+ }
+push $N5e082000
+ Dot {
+  name Dot1
+  xpos -122
+  ypos -7
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos -156
+  ypos 501
+ }
+push $N5e082900
+push $N5e082000
+ Switch {
+  inputs 5
+  which {{ColourChecker_GQ.CTRLs.gq_ColourCheckerOutput}}
+  name Switch2
+  xpos -582
+  ypos 613
+ }
+ Output {
+  name Output1
+  xpos -582
+  ypos 713
+ }
+ NoOp {
+  inputs 0
+  name CTRLs
+  selected true
+  xpos 5
+  ypos -113
+  addUserKnob {20 CTRL}
+  addUserKnob {3 maskSize l "Mask Size"}
+  maskSize 100
+  addUserKnob {4 gq_ColourCheckerOutput l Output M {Reference Render Merged Ref/Render Render/Ref ""}}
+  gq_ColourCheckerOutput Merged
+  addUserKnob {20 refDetails l Reference n 1}
+  addUserKnob {3 RefFrameHold l "Frame Hold"}
+  RefFrameHold 200
+  addUserKnob {12 RefBottomLeft l "Bottom Left"}
+  addUserKnob {12 RefBottomRight l "Bottom Right"}
+  RefBottomRight {1920 0}
+  addUserKnob {12 RefTopRight l "Top Right"}
+  RefTopRight {1920 1080}
+  addUserKnob {12 RefTopLeft l "Top Left"}
+  RefTopLeft {0 1080}
+  addUserKnob {20 endGroup n -1}
+  addUserKnob {20 renderDetails l Render n 1}
+  addUserKnob {3 RenderFrameHold l "Frame Hold"}
+  addUserKnob {6 renderMasking l "Merged Masking" -STARTLINE}
+  addUserKnob {12 RenderBottomLeft l "Bottom Left"}
+  addUserKnob {12 RenderBottomRight l "Bottom Right"}
+  RenderBottomRight {1920 0}
+  addUserKnob {12 RenderTopRight l "Top Right"}
+  RenderTopRight {1920 1080}
+  addUserKnob {12 RenderTopLeft l "Top Left"}
+  RenderTopLeft {0 1080}
+  addUserKnob {20 endGroup_1 l endGroup n -1}
+ }
+end_group
