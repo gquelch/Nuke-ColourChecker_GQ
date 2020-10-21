@@ -3,7 +3,7 @@
 
 I designed this tool to be able to better make use of Macbeth charts for VFX projects.
 
-The idea was having a more streamlined way of compare your Render and Reference colour checkers, being able to view either one on top of the other, so you can closely match up the colours.
+The idea was having a more streamlined way of compare your Render and Reference colour checkers, being able to view either one on top of the other, so you can closely match up the colours
 
 Correct digital MacBeth charts can be found [here](http://www.nukepedia.com/gizmos/draw/x-rite-colorchecker-classic-2005-gretagmacbeth) in many colourspaces, as EXR download or Nuke Gzimo.
 
@@ -11,7 +11,7 @@ Correct digital MacBeth charts can be found [here](http://www.nukepedia.com/gizm
 
 ### Workflow
 
-There are a lot of automated tools out there for using a macbeth chart in Nuke, such as [mmColorTarget](http://www.nukepedia.com/gizmos/colour/mmcolortarget), but often you want to have manual control over the result, for instance mmColourTarget will output a colour matrix, which isn't simple to tweak if you want to use this to grade your CG element. 
+There are a lot of automated tools out there for using a Macbeth chart in Nuke, such as [mmColorTarget](http://www.nukepedia.com/gizmos/colour/mmcolortarget), but often you want to have manual control over the result, for instance mmColourTarget will output a colour matrix, which isn't simple to tweak if you want to use this to grade your CG element. 
 
 With this workflow you can simply copy the grade nodes over to your CG elements and use them as a starting point for the comp.
 
